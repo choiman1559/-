@@ -14,5 +14,5 @@
     <string name="MaskDays">현재 사용중인 마스크 사용 일수</string>
     <string name="Avarge_mask">평균 1일당 마스크 사용 갯수</string>
     <string name="Avarge_days">평균 마스크 1개당 사용 일수</string>
-    <string name="ChangeMask">마스크 카운터 초기화</string>
+    <string name="ChangeMask">새 마스크로 바꾸기</string>
 </resources>
