@@ -6,7 +6,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -62,6 +64,11 @@ public class MainActivity extends AppCompatActivity {
 
             float avarge_days =  (float) prefs.getInt("TotalDays", 0) / (float) prefs.getInt("TotalMask", 0);
             Avarge_days.setText(NaN(incode(avarge_days)));
+
+            ImageView gogit = findViewById(R.id.gotogit);
+            gogit.setOnClickListener(v -> {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/choiman1559/MaskCounter")));
+            });
 
             ImageView exit = findViewById(R.id.exit);
             exit.setOnClickListener(v -> {
