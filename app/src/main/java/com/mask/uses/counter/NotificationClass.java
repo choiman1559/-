@@ -31,7 +31,7 @@ class NotificationClass {
             SharedPreferences prefs = context.getSharedPreferences("MaskValues", MODE_PRIVATE);
 
             RemoteViews contentView = new RemoteViews(context.getPackageName(), R.layout.notification);
-            contentView.setTextViewText(R.id.toptext, "현재 사용중인 마스크는\n" + prefs.getInt("MaskDays", 0) + "일 쨰 사용중입니다!");
+            contentView.setTextViewText(R.id.toptext, "현재 사용중인 마스크는\n" + prefs.getInt("MaskDays", 0) + "일 째 사용중입니다!");
             contentView.setTextViewText(R.id.textview17,context.getString(R.string.ChangeMask));
             contentView.setOnClickPendingIntent(R.id.textview17,BroadcastPending);
             contentView.setImageViewResource(R.id.reload_icon, R.drawable.ic_autorenew_black_24dp);
@@ -81,7 +81,6 @@ class NotificationClass {
             Calendar calendar = Calendar.getInstance();
             calendar.setTimeInMillis(System.currentTimeMillis());
             calendar.set(Calendar.HOUR, 0);
-            calendar.set(Calendar.MINUTE, 0);
 
             alarmMgr = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
             assert alarmMgr != null;

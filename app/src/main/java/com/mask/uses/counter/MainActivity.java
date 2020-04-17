@@ -4,20 +4,16 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
-import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -66,9 +62,7 @@ public class MainActivity extends AppCompatActivity {
             Avarge_days.setText(NaN(incode(avarge_days)));
 
             ImageView gogit = findViewById(R.id.gotogit);
-            gogit.setOnClickListener(v -> {
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/choiman1559/MaskCounter")));
-            });
+            gogit.setOnClickListener(v -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/choiman1559/MaskCounter"))));
 
             ImageView exit = findViewById(R.id.exit);
             exit.setOnClickListener(v -> {
