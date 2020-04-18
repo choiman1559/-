@@ -45,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
             new NotificationClass.Alarm(this);
             NotificationClass.Alarm.setAlarm();
 
+            prefs.edit().putBoolean("ServiceEnabled",true).apply();
+
             TextView TotalMask,MaskDays,Avarge_mask,Avarge_days;
 
             TotalMask = findViewById(R.id.TotalMask);
@@ -74,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
                     NotificationClass.Notification.Cancel(MainActivity.this);
                     new NotificationClass.Alarm(MainActivity.this);
                     NotificationClass.Alarm.cancelAlarm();
+                    prefs.edit().putBoolean("ServiceEnabled",false).apply();
                     finish();
                 });
 
@@ -87,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
             findViewById(R.id.button).setOnClickListener(v -> {
                 NotificationClass.Notification.Notify(MainActivity.this);
 
+                prefs.edit().putBoolean("ServiceEnabled",true).apply();
                 new NotificationClass.Alarm(this);
                 NotificationClass.Alarm.setAlarm();
 
@@ -98,6 +102,7 @@ public class MainActivity extends AppCompatActivity {
 
                 new NotificationClass.Alarm(this);
                 NotificationClass.Alarm.cancelAlarm();
+                prefs.edit().putBoolean("ServiceEnabled",false).apply();
 
                 recreate();
             });

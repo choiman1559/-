@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.mask.uses.counter">
-
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
 
     <application
@@ -35,6 +34,12 @@
                 <action android:name="com.mask.uses.counter.DAY_LATER" />
             </intent-filter>
         </receiver>
-    </application>
 
+        <receiver android:name=".BootComplete">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
+
+    </application>
 </manifest>
