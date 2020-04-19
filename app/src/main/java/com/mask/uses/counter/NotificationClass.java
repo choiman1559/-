@@ -11,11 +11,16 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
+import android.os.Debug;
+import android.util.Log;
 import android.widget.RemoteViews;
 
 import androidx.core.app.NotificationCompat;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Locale;
+import java.util.SimpleTimeZone;
 
 import static android.content.Context.MODE_PRIVATE;
 import static android.content.Context.NOTIFICATION_SERVICE;
@@ -81,15 +86,25 @@ class NotificationClass {
 
         static void setAlarm() {
             Calendar calendar = Calendar.getInstance();
-            calendar.set(Calendar.HOUR_OF_DAY, 0);
-            calendar.set(Calendar.MINUTE,0);
+            calendar.set(Calendar.DATE, Integer.parseInt(new SimpleDateFormat( "dd", Locale.getDefault()).format(calendar.getTimeInMillis())) + 1);
+            calendar.set(Calendar.HOUR_OF_DAY,0);
+            calendar.set(Calendar.MINUTE,1);
+            calendar.set(Calendar.SECOND,30);
+            //calendar.set(Calendar.HOUR_OF_DAY, 0);
+
+            if(BuildConfig.DEBUG) Log.d("response_day",new SimpleDateFormat( "yyyy-MM-dd_HH:mm:ss", Locale.getDefault()).format(calendar.getTimeInMillis()));
 
             alarmMgr = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
             assert alarmMgr != null;
-            alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, BroadcastPending);
+
+            //alarmMgr.setAlarmClock(new AlarmManager.AlarmClockInfo(calendar.getTimeInMillis(),PendingIntent.getActivity(context, 0, new Intent(context,DayLaterClass.class), PendingIntent.FLAG_UPDATE_CURRENT)),BroadcastPending);
+            //alarmMgr.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, BroadcastPending);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 alarmMgr.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), BroadcastPending);
+            } else {
+                alarmMgr.setExact(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),BroadcastPending);
             }
+
             context.getPackageManager().setComponentEnabledSetting(
                     new ComponentName(context, BootComplete.class),
                     PackageManager.COMPONENT_ENABLED_STATE_ENABLED,

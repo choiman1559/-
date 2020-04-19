@@ -23,8 +23,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_debug_main); Layoutmode = 0;
-        setContentView(R.layout.activity_main); Layoutmode = 1;
+
+        // Layoutmode 0 : layout for test
+        // Layoutmode 1 : layout for release
+        Layoutmode = 1;
 
         SharedPreferences prefs = getSharedPreferences("MaskValues", MODE_PRIVATE);
 
@@ -37,17 +39,19 @@ public class MainActivity extends AppCompatActivity {
         if (prefs.getInt("TotalMask", 0) == 0)
             prefs.edit().putInt("TotalMask", 1).apply();
 
-        if("".equals(prefs.getString("LastAlarm","")))
-            prefs.edit().putString("LastAlarm", new SimpleDateFormat("yyyy-MM-dd",Locale.getDefault()).format(Calendar.getInstance().getTime())).apply();
+        if ("".equals(prefs.getString("LastAlarm", "")))
+            prefs.edit().putString("LastAlarm", new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Calendar.getInstance().getTime())).apply();
 
         if (Layoutmode == 1) {
+            setContentView(R.layout.activity_main);
+
             NotificationClass.Notification.Notify(MainActivity.this);
             new NotificationClass.Alarm(this);
             NotificationClass.Alarm.setAlarm();
 
-            prefs.edit().putBoolean("ServiceEnabled",true).apply();
+            prefs.edit().putBoolean("ServiceEnabled", true).apply();
 
-            TextView TotalMask,MaskDays,Avarge_mask,Avarge_days;
+            TextView TotalMask, MaskDays, Avarge_mask, Avarge_days;
 
             TotalMask = findViewById(R.id.TotalMask);
             MaskDays = findViewById(R.id.MaskDays);
@@ -55,12 +59,12 @@ public class MainActivity extends AppCompatActivity {
             Avarge_mask = findViewById(R.id.Avarge_mask);
 
             TotalMask.setText(incode(prefs.getInt("TotalMask", 0)));
-            MaskDays.setText(incode( prefs.getInt("MaskDays", 0)));
+            MaskDays.setText(incode(prefs.getInt("MaskDays", 0)));
 
             float avarge_mask = (float) prefs.getInt("TotalMask", 0) / (float) prefs.getInt("TotalDays", 0);
             Avarge_mask.setText(NaN(incode(avarge_mask)));
 
-            float avarge_days =  (float) prefs.getInt("TotalDays", 0) / (float) prefs.getInt("TotalMask", 0);
+            float avarge_days = (float) prefs.getInt("TotalDays", 0) / (float) prefs.getInt("TotalMask", 0);
             Avarge_days.setText(NaN(incode(avarge_days)));
 
             ImageView gogit = findViewById(R.id.gotogit);
@@ -76,21 +80,23 @@ public class MainActivity extends AppCompatActivity {
                     NotificationClass.Notification.Cancel(MainActivity.this);
                     new NotificationClass.Alarm(MainActivity.this);
                     NotificationClass.Alarm.cancelAlarm();
-                    prefs.edit().putBoolean("ServiceEnabled",false).apply();
+                    prefs.edit().putBoolean("ServiceEnabled", false).apply();
                     finish();
                 });
 
-                builder.setNegativeButton("취소", (dialog, id) -> { });
+                builder.setNegativeButton("취소", (dialog, id) -> {
+                });
                 AlertDialog alertDialog = builder.create();
                 alertDialog.show();
             });
         }
 
         if (Layoutmode == 0) {
+            setContentView(R.layout.activity_debug_main);
             findViewById(R.id.button).setOnClickListener(v -> {
                 NotificationClass.Notification.Notify(MainActivity.this);
 
-                prefs.edit().putBoolean("ServiceEnabled",true).apply();
+                prefs.edit().putBoolean("ServiceEnabled", true).apply();
                 new NotificationClass.Alarm(this);
                 NotificationClass.Alarm.setAlarm();
 
@@ -102,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
 
                 new NotificationClass.Alarm(this);
                 NotificationClass.Alarm.cancelAlarm();
-                prefs.edit().putBoolean("ServiceEnabled",false).apply();
+                prefs.edit().putBoolean("ServiceEnabled", false).apply();
 
                 recreate();
             });
@@ -122,13 +128,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     String incode(int input) {
-        if(input < 10) return "0" + input;
+        if (input < 10) return "0" + input;
         else return Integer.toString(input);
     }
 
     String incode(float input) {
-        if(input % 1.0 == 0.0) return (input < 10 ? "0" : "") + Math.round(input);
-        else return String.format(Locale.getDefault(),"%.1f",input);
+        if (input % 1.0 == 0.0) return (input < 10 ? "0" : "") + Math.round(input);
+        else return String.format(Locale.getDefault(), "%.1f", input);
     }
 
     String NaN(String str) {

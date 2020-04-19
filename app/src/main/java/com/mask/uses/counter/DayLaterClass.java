@@ -15,7 +15,7 @@ public class DayLaterClass extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 
-        Log.d("broadcast","response_day");
+        if(BuildConfig.DEBUG) Log.d("broadcast","response_day");
         SharedPreferences prefs = context.getSharedPreferences("MaskValues", Context.MODE_PRIVATE);
         SharedPreferences.Editor edit = prefs.edit();
 
@@ -28,6 +28,9 @@ public class DayLaterClass extends BroadcastReceiver {
             edit.putInt("TotalDays", prefs.getInt("TotalDays", 1) + 1);
             edit.apply();
             NotificationClass.Notification.Notify(context);
+
+            new NotificationClass.Alarm(context);
+            NotificationClass.Alarm.setAlarm();
         }
     }
 }
