@@ -6,6 +6,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Bundle;
 import android.widget.ImageView;
@@ -89,6 +92,17 @@ public class MainActivity extends AppCompatActivity {
                 AlertDialog alertDialog = builder.create();
                 alertDialog.show();
             });
+
+            switch (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
+                case Configuration.UI_MODE_NIGHT_YES:
+                        gogit.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN);
+                        exit.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN);
+                    break;
+                case Configuration.UI_MODE_NIGHT_NO:
+                        gogit.setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_IN);
+                        exit.setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_IN);
+                    break;
+            }
         }
 
         if (Layoutmode == 0) {

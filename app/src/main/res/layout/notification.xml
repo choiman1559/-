@@ -16,8 +16,6 @@
             android:id="@+id/mask_icon"
             android:layout_width="35dp"
             android:layout_height="match_parent"
-            android:foregroundTint="#000000"
-            android:tint="#000000"
             app:srcCompat="@drawable/ic_dentist_mask"
             tools:srcCompat="@drawable/ic_dentist_mask" />
 
@@ -54,7 +52,6 @@
                 android:layout_height="match_parent"
                 app:srcCompat="@drawable/ic_autorenew_black_24dp" />
         </LinearLayout>
-
     </LinearLayout>
 
 </RelativeLayout>

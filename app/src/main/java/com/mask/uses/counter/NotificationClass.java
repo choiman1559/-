@@ -10,8 +10,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
+import android.graphics.Color;
 import android.os.Build;
-import android.os.Debug;
 import android.util.Log;
 import android.widget.RemoteViews;
 
@@ -20,7 +21,6 @@ import androidx.core.app.NotificationCompat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
-import java.util.SimpleTimeZone;
 
 import static android.content.Context.MODE_PRIVATE;
 import static android.content.Context.NOTIFICATION_SERVICE;
@@ -45,6 +45,17 @@ class NotificationClass {
             contentView.setOnClickPendingIntent(R.id.reload_icon, BroadcastPending);
             contentView.setImageViewResource(R.id.mask_icon, R.drawable.ic_dentist_mask);
 
+            switch (context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) {
+                case Configuration.UI_MODE_NIGHT_YES:
+                    contentView.setInt(R.id.reload_icon, "setColorFilter", Color.WHITE);
+                    contentView.setInt(R.id.mask_icon, "setColorFilter", Color.WHITE);
+                    break;
+                case Configuration.UI_MODE_NIGHT_NO:
+                    contentView.setInt(R.id.reload_icon, "setColorFilter", Color.BLACK);
+                    contentView.setInt(R.id.mask_icon, "setColorFilter", Color.BLACK);
+                    break;
+            }
+
             NotificationCompat.Builder mBuilder =
                     new NotificationCompat.Builder(context, context.getString(R.string.Channel_id))
                             .setSmallIcon(R.drawable.ic_dentist_mask)
@@ -60,8 +71,6 @@ class NotificationClass {
             }
             assert mManager != null;
             mManager.notify(R.string.Channel_id, mBuilder.build());
-
-
         }
 
         static void Cancel(Context context) {
@@ -86,13 +95,13 @@ class NotificationClass {
 
         static void setAlarm() {
             Calendar calendar = Calendar.getInstance();
-            calendar.set(Calendar.DATE, Integer.parseInt(new SimpleDateFormat( "dd", Locale.getDefault()).format(calendar.getTimeInMillis())) + 1);
-            calendar.set(Calendar.HOUR_OF_DAY,0);
-            calendar.set(Calendar.MINUTE,1);
-            calendar.set(Calendar.SECOND,30);
+            calendar.set(Calendar.DATE, Integer.parseInt(new SimpleDateFormat("dd", Locale.getDefault()).format(calendar.getTimeInMillis())) + 1);
+            calendar.set(Calendar.HOUR_OF_DAY, 0);
+            calendar.set(Calendar.MINUTE, 0);
             //calendar.set(Calendar.HOUR_OF_DAY, 0);
 
-            if(BuildConfig.DEBUG) Log.d("response_day",new SimpleDateFormat( "yyyy-MM-dd_HH:mm:ss", Locale.getDefault()).format(calendar.getTimeInMillis()));
+            if (BuildConfig.DEBUG)
+                Log.d("response_day", new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss", Locale.getDefault()).format(calendar.getTimeInMillis()));
 
             alarmMgr = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
             assert alarmMgr != null;
@@ -102,7 +111,7 @@ class NotificationClass {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 alarmMgr.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), BroadcastPending);
             } else {
-                alarmMgr.setExact(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),BroadcastPending);
+                alarmMgr.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), BroadcastPending);
             }
 
             context.getPackageManager().setComponentEnabledSetting(
