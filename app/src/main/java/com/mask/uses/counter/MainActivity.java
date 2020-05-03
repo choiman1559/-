@@ -77,9 +77,9 @@ public class MainActivity extends AppCompatActivity {
             exit.setOnClickListener(v -> {
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setTitle("앱 종료").setMessage("이 앱을 종료하시겠습니까?");
+                builder.setTitle(getString(R.string.exit_title)).setMessage(getString(R.string.exit_confirm));
 
-                builder.setPositiveButton("확인", (dialog, id) -> {
+                builder.setPositiveButton(getString(R.string.ok), (dialog, id) -> {
                     NotificationClass.Notification.Cancel(MainActivity.this);
                     new NotificationClass.Alarm(MainActivity.this);
                     NotificationClass.Alarm.cancelAlarm();
@@ -87,8 +87,7 @@ public class MainActivity extends AppCompatActivity {
                     finish();
                 });
 
-                builder.setNegativeButton("취소", (dialog, id) -> {
-                });
+                builder.setNegativeButton(getString(R.string.cancel), (dialog, id) -> { });
                 AlertDialog alertDialog = builder.create();
                 alertDialog.show();
             });

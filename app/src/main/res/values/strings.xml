@@ -1,10 +1,10 @@
 <resources>
     <string name="app_name">Mask Counter</string>
 
-    <string name="Channel_id">maskcounter</string>
-    <string name="Channel_name">alarm Channel</string>
-    <string name="on">on</string>
-    <string name="off">off</string>
+    <string name="Channel_id" translatable="false">maskcounter</string>
+    <string name="Channel_name" translatable="false">alarm Channel</string>
+    <string name="on" translatable="false">on</string>
+    <string name="off" translatable="false">off</string>
 
     <string name="exitapp">exit app/notification</string>
     <string name="gotogit">go to Git repo</string>
@@ -15,4 +15,9 @@
     <string name="Avarge_mask">Average number of masks used per day</string>
     <string name="Avarge_days">Average number of days per mask</string>
     <string name="ChangeMask">Reset mask counter</string>
+
+    <string name="exit_title">exit</string>
+    <string name="exit_confirm">Are you sure you want to quit this app?</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
 </resources>
