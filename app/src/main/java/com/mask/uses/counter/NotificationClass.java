@@ -36,9 +36,11 @@ class NotificationClass {
             PendingIntent mPintent = PendingIntent.getActivity(context, 0, mIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
             SharedPreferences prefs = context.getSharedPreferences("MaskValues", MODE_PRIVATE);
-
             RemoteViews contentView = new RemoteViews(context.getPackageName(), R.layout.notification);
-            contentView.setTextViewText(R.id.toptext, "현재 사용중인 마스크는\n" + prefs.getInt("MaskDays", 0) + "일 째 사용중입니다!");
+            contentView.setTextViewText(R.id.toptext,
+                    Locale.getDefault().getLanguage().equals("ko") ?
+                            "현재 사용중인 마스크는\n" + prefs.getInt("MaskDays", 0) + "일 째 사용중입니다!"
+                            : "The mask you are using \nis in use for " + prefs.getInt("MaskDays", 0) + " day(s).");
             contentView.setTextViewText(R.id.textview17, context.getString(R.string.ChangeMask));
             contentView.setOnClickPendingIntent(R.id.textview17, BroadcastPending);
             contentView.setImageViewResource(R.id.reload_icon, R.drawable.ic_autorenew_black_24dp);

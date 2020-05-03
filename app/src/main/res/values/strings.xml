@@ -1,18 +1,18 @@
 <resources>
-    <string name="app_name">마얼썼</string>
+    <string name="app_name">Mask Counter</string>
 
     <string name="Channel_id">maskcounter</string>
-    <string name="Channel_name">알람 채널</string>
+    <string name="Channel_name">alarm Channel</string>
     <string name="on">on</string>
     <string name="off">off</string>
 
-    <string name="exitapp">앱/서비스 종료</string>
-    <string name="gotogit">Git에서 소스 보기</string>
+    <string name="exitapp">exit app/notification</string>
+    <string name="gotogit">go to Git repo</string>
 
-    <string name="TotalMask">총 사용한 마스크 개수</string>
-    <string name="TotalDays">마스크 사용 총일</string>
-    <string name="MaskDays">현재 사용중인 마스크 사용 일수</string>
-    <string name="Avarge_mask">평균 1일당 마스크 사용 갯수</string>
-    <string name="Avarge_days">평균 마스크 1개당 사용 일수</string>
-    <string name="ChangeMask">새 마스크로 바꾸기</string>
+    <string name="TotalMask">Total number of masks used</string>
+    <string name="TotalDays">Mask use total date</string>
+    <string name="MaskDays">The number of days the mask is currently in use</string>
+    <string name="Avarge_mask">Average number of masks used per day</string>
+    <string name="Avarge_days">Average number of days per mask</string>
+    <string name="ChangeMask">Reset mask counter</string>
 </resources>
